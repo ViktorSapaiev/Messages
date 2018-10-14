@@ -7,4 +7,5 @@ import java.util.List;
 public interface MessageService {
     Message save(Message message);
     List<Message> findAll();
+    List<Message> findMessageByRecipientId(Long id);
 }

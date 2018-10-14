@@ -1,7 +1,10 @@
 package io.borlandfcsd.template.controller;
 
 import io.borlandfcsd.template.entity.Message;
+import io.borlandfcsd.template.entity.dto.MessageDto;
+import io.borlandfcsd.template.entity.dto.transformer.MessageTransformer;
 import io.borlandfcsd.template.service.MessageService;
+
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -21,15 +24,17 @@ public class MessageResource {
     }
 
     @GET
-    public List<Message> findAll(){
+    public List<Message> findAll(@QueryParam("companyId") Long companyId){
+        if(companyId != null){
+          return messageService.findMessageByRecipientId(companyId);
+        }
         return messageService.findAll();
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response save(@Valid Message message, @Context UriInfo uriInfo){
-        Message savedMessage = messageService.save(message);
-
+    public Response save(@Valid MessageDto dto, @Context UriInfo uriInfo){
+        Message savedMessage = messageService.save(MessageTransformer.convertToMessage(dto));
 
         return Response.status(Response.Status.CREATED.getStatusCode())
                 .header(

@@ -1,6 +1,6 @@
 package io.borlandfcsd.template.entity;
 
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Table(name = "messages")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Message implements Serializable {
     @Id @GeneratedValue
     private Long id;
@@ -20,11 +21,13 @@ public class Message implements Serializable {
     private LocalDateTime dateTime;
     @Column(name = "phone_number")
     @NotEmpty
-    private String from;
+    private String sender;
     @ManyToOne
     @JoinColumn(name = "company_id")
-    private Company to;
+    private Company recipient;
     @Column
     @NotEmpty
-    private String text;
+    private String message;
+
+
 }

@@ -28,4 +28,8 @@ public class MessageServiceImpl implements MessageService {
         return messageRepository.findAll();
     }
 
+    @Override
+    public List<Message> findMessageByRecipientId(Long id) {
+        return messageRepository.findMessageByRecipientId(id);
+    }
 }

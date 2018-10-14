@@ -19,4 +19,10 @@ public class CompanyServiceImpl implements CompanyService {
     public Company save(Company company) {
         return companyRepository.save(company);
     }
+
+    public Company findById(int id) {
+        return companyRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("couldn't found id:" + id));
+    }
+
+
 }
