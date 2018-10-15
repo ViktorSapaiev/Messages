@@ -2,16 +2,17 @@ package io.borlandfcsd.template.controller.exceptionProvider;
 
 
 
-import org.glassfish.jersey.server.spi.ResponseErrorMapper;
 
+
+import javax.validation.ValidationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 @Provider
-public class MethodArgumentNotValidExceptionHandler implements ExceptionMapper<Throwable>, ResponseErrorMapper {
+public class MethodArgumentNotValidExceptionHandler implements ExceptionMapper<ValidationException> {
     @Override
-    public Response toResponse(Throwable e) {
-        return Response.status(Response.Status.BAD_REQUEST).build();
+    public Response toResponse(ValidationException e) {
+        return Response.status(Response.Status.BAD_REQUEST).entity("Invalid sender or empty message").build();
     }
 }

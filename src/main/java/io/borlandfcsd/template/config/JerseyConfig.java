@@ -1,7 +1,9 @@
 package io.borlandfcsd.template.config;
 
+import io.borlandfcsd.template.controller.CompanyResource;
 import io.borlandfcsd.template.controller.MessageResource;
 import io.borlandfcsd.template.controller.exceptionProvider.MethodArgumentNotValidExceptionHandler;
+import io.borlandfcsd.template.service.CompanyService;
 import io.borlandfcsd.template.service.MessageService;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.context.annotation.Bean;
@@ -17,9 +19,15 @@ public class JerseyConfig {
     }
 
     @Bean
-    public ResourceConfig config(MessageResource mr){
+    public CompanyResource companyResource(CompanyService companyService){
+        return new CompanyResource(companyService);
+    }
+
+    @Bean
+    public ResourceConfig config(MessageResource mr, CompanyResource cr){
         ResourceConfig resourceConfig = new ResourceConfig();
         resourceConfig.register(mr);
+        resourceConfig.register(cr);
         resourceConfig.register(MethodArgumentNotValidExceptionHandler.class);
 
         resourceConfig.setProperties(new LinkedHashMap<String, Object>() {{

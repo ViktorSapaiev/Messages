@@ -6,6 +6,8 @@ import io.borlandfcsd.template.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CompanyServiceImpl implements CompanyService {
     private CompanyRepository companyRepository;
@@ -24,5 +26,13 @@ public class CompanyServiceImpl implements CompanyService {
         return companyRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("couldn't found id:" + id));
     }
 
+    @Override
+    public List<Company> findAll() {
+        return companyRepository.findAll();
+    }
 
+    @Override
+    public Company findByName(String name) {
+        return companyRepository.findCompanyByName(name);
+    }
 }
